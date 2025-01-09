@@ -1,3 +1,7 @@
+using System; 
+using System.Linq; 
+using System.Collections.Generic;
+using System.Diagnostics;
 public static class Arrays
 {
     /// <summary>
@@ -24,9 +28,9 @@ public static class Arrays
         // 5. return the resulting array 
 
         List<double> multiples = new();
-        for (double i = 1; i < length; ++i)
+        for (double i = 0; i < length; ++i)
         {
-            multiples.Add(number * i);
+            multiples.Add(number * (i+1));
         }
         return multiples.ToArray(); // replace this return statement with your own
     }
@@ -44,5 +48,37 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // thought process
+        // to rotate the list once, i need to create a new list in which all the indices except the ;ast one are shifted one step right. 
+        // the ;ast one must be changed to 0. 
+        // thia can be repeated as many times as the amount
+        // 1. i will do this by creating a new empty list
+        // 2. taking the last number from the old list and making ti the first number in the new list
+        // 3. adding the rest of the numbers from the old list to the new
+        // 4. replacing the old list with the new list
+
+        int i = new();
+        while (i < amount) 
+        {
+            List<int> newList = [];
+            int lastIndex = data.Count() - 1;
+            Debug.WriteLine("lastIndex " + lastIndex);
+            Debug.WriteLine(data[lastIndex]);
+            newList.Add(data[lastIndex]);
+
+            for (int j=0; j < lastIndex; j++)
+            {
+                newList.Add(data[j]);
+            }
+            // foreach (int number in newList)
+            // {
+            //     Debug.WriteLine(number);
+            // }
+            data = newList;
+
+            Debug.WriteLine("at 0 " + data[0]);
+            i++;
+        }
     }
 }
