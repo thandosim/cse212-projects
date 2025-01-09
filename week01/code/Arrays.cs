@@ -12,8 +12,23 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        
+        // Thought process
+        // Given a number n, its multiples can be found by multiplying the number with integers starting with 1
+        // thus to make a function that finds the multiples of n, we must write a function that multiplies n by intergers i from 1
+        // up to the given ending point. 
+        // 1. initialize an array of length length
+        // 2. start a for loop that iterates from i =1 to i = length
+        // 3. in the loop, multiply n by i
+        // 4. append the result to the array
+        // 5. return the resulting array 
 
-        return []; // replace this return statement with your own
+        List<double> multiples = new();
+        for (double i = 1; i < length; ++i)
+        {
+            multiples.Add(number * i);
+        }
+        return multiples.ToArray(); // replace this return statement with your own
     }
 
     /// <summary>
