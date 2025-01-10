@@ -75,7 +75,8 @@ public static class Arrays
             // {
             //     Debug.WriteLine(number);
             // }
-            data = newList;
+            data.Clear();
+            data.AddRange(newList);
 
             Debug.WriteLine("at 0 " + data[0]);
             i++;
