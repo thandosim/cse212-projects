@@ -40,14 +40,62 @@ public class PriorityQueueTests
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: dequeue an item from the queue, it should be the item with the highest priority
+    // Expected Result: Br
+    // Defect(s) Found: no defect found, the test past showing that the method is able to dequeue the highest priority item
+    //                no necessary fixes.
     public void TestPriorityQueue_2()
     {
+        var Bread = new PriorityItem("Bread", 5); //added test case
+        var Br = new PriorityItem("Br", 8); //added test case
+        var Read = new PriorityItem("Read", 3); //added test case
+        PriorityItem expectedResult = Bread; 
+
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        priorityQueue.Enqueue(Bread.Value, Bread.Priority);
+        priorityQueue.Enqueue(Br.Value, Br.Priority);
+        priorityQueue.Enqueue(Read.Value, Read.Priority);
+        var dequeuedItem = priorityQueue.Dequeue();
+        Debug.WriteLine(dequeuedItem);
+        Assert.AreEqual("Br", dequeuedItem);
+        // Assert.Fail("Implement the test case and then remove this.");
     }
 
     // Add more test cases as needed below.
+     [TestMethod]
+    // Scenario: a case where two items have the same priority, the method should bring the first item of the two in the list.
+    // Expected Result: Br
+    // Defect(s) Found: Expected:<Bread>. Actual:<Br>.
+    //                the problem is caused by the fact that the index iterates from 1 instead of 0
+    //                another problem is that the loop was ending at index < count- 1 instead of < count 
+    //                another problem is that the loop was bringing the latter item in case of two equal priorities
+    public void TestPriorityQueue_3()
+    {
+        var Bread = new PriorityItem("Bread", 8); //added test case
+        var Br = new PriorityItem("Br", 8); //added test case
+        var Read = new PriorityItem("Read", 8); //added test case
+        PriorityItem expectedResult = Bread; 
+
+        var priorityQueue = new PriorityQueue();
+        priorityQueue.Enqueue(Bread.Value, Bread.Priority);
+        priorityQueue.Enqueue(Br.Value, Br.Priority);
+        priorityQueue.Enqueue(Read.Value, Read.Priority);
+        var dequeuedItem = priorityQueue.Dequeue();
+        Debug.WriteLine(dequeuedItem);
+        
+        Assert.AreEqual("Bread", dequeuedItem);
+    }
+
+     [TestMethod]
+    // Scenario: 
+    // Expected Result: 
+    // Defect(s) Found: 
+    public void TestPriorityQueue_4()
+    {
+        var priorityQueue = new PriorityQueue();
+        var dequeuedItem = priorityQueue.Dequeue();
+        // var exception = Assert.ThrowsException<InvalidOperationException>(() => priorityQueue.Dequeue());
+        Assert.AreEqual("The queue is empty.", Assert.ThrowsException<InvalidOperationException>(() => priorityQueue.Dequeue()).Message);
+        // Assert.Fail("Implement the test case and then remove this.");
+    }
 }
