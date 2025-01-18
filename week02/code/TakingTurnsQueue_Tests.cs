@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+ using System.Diagnostics;
 
 // TODO Problem 1 - Run test cases and record any defects the test code finds in the comment above the test method.
 // DO NOT MODIFY THE CODE IN THE TESTS in this file, just the comments above the tests. 
@@ -93,7 +94,8 @@ public class TakingTurnsQueueTests
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
     // Defect(s) Found: 
     //                Expected:<Tim>. Actual:<Sue>.
-    //                
+    //                this is because the GetNextPerson method does not handle negative or 0 turns, only turns greater than 1.
+    //                this was fixed by adding line 43 to 47  in takingTurnsQueue.cs
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
@@ -108,7 +110,7 @@ public class TakingTurnsQueueTests
         players.AddPerson(bob.Name, bob.Turns);
         players.AddPerson(tim.Name, tim.Turns);
         players.AddPerson(sue.Name, sue.Turns);
-
+        Debug.WriteLine(players);
         for (int i = 0; i < 10; i++)
         {
             var person = players.GetNextPerson();
@@ -136,7 +138,7 @@ public class TakingTurnsQueueTests
         var players = new TakingTurnsQueue();
         players.AddPerson(tim.Name, tim.Turns);
         players.AddPerson(sue.Name, sue.Turns);
-
+        Debug.WriteLine(players);
         for (int i = 0; i < 10; i++)
         {
             var person = players.GetNextPerson();

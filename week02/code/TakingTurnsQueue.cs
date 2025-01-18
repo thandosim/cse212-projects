@@ -40,6 +40,11 @@ public class TakingTurnsQueue
         else
         {
             Person person = _people.Dequeue();
+            //inserting a line here to make a person with 0 turns to have the maxvalue of turns
+            if(person.Turns < 1)
+            {
+                _people.Enqueue(person);
+            }
             if (person.Turns > 1)
             {
                 person.Turns -= 1;
