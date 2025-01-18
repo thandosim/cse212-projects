@@ -11,7 +11,12 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3) and
     // run until the queue is empty
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found:  
+    //                Expected:<Bob>. Actual:<Sue>.
+    //                this is because the AddPerson function simply enqueues the people with out
+    //                ordering them into turns. ie it makes bob, bob, instead of bob,sue, bob.
+    //                need to fix AddPerson method so that the people get fair turns.
+    //                this was fixed by my edit on line 19 of the PersonQueue.cs file.
     public void TestTakingTurnsQueue_FiniteRepetition()
     {
         var bob = new Person("Bob", 2);
@@ -44,6 +49,7 @@ public class TakingTurnsQueueTests
     // After running 5 times, add George with 3 turns.  Run until the queue is empty.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, George, Sue, Tim, George, Tim, George
     // Defect(s) Found: 
+    //                 test bassed with no defects found
     public void TestTakingTurnsQueue_AddPlayerMidway()
     {
         var bob = new Person("Bob", 2);
@@ -86,6 +92,8 @@ public class TakingTurnsQueueTests
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
     // Defect(s) Found: 
+    //                Expected:<Tim>. Actual:<Sue>.
+    //                
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
