@@ -15,6 +15,12 @@
         _queue.Add(newNode);
     }
 
+    //added this method to get the lentgh of the queue
+    public int CountItems()
+    {
+        return _queue.Count;
+    }
+
     public string Dequeue()
     {
         if (_queue.Count == 0) // Verify the queue is not empty
