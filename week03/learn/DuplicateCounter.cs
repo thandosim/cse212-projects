@@ -25,6 +25,17 @@
     private static int CountDuplicates(int[] data)
     {
         // Add code here.
-        return 0;
+        HashSet<int> dataSet = [.. data]; //put all numbers from data into a set. This eliminates duplicates in the set
+        HashSet<int> tracker = new HashSet<int>();// start a new set to track observed numbers in.
+        var counter = 0;//initialize a counter to keep track of duplicates
+        foreach(int i in data) //go through each number in data, even the dupplicates
+        {
+            if(tracker.Contains(i) && dataSet.Contains(i))//if the number in data is found in both the tracker and dataset sets,
+            {
+                counter++; //then it is a duplicate and increase the counter by one
+            }
+            tracker.Add(i); //put the number we just checked in the tracker set. this will only happen once for each number, no duplicates
+        }        
+        return counter;
     }
 }
