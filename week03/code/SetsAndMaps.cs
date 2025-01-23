@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json;
-// using System; 
-// using System.Linq;
+using System; 
+using System.Linq;
 
 public static class SetsAndMaps
 {
@@ -92,8 +92,54 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
+        word1=word1.Replace(" ", "").ToLower();
+        word2=word2.Replace(" ", "").ToLower();
+        if(word1.Length==word2.Length)
+        {
+            var dict1 = new Dictionary<Char, int>();
+            var dict2 = new Dictionary<Char, int>();
+            for (int i=0;i<word1.Length;i++)
+            {
+                if (dict1.ContainsKey(word1[i]))
+                {
+                    dict1[word1[i]]++;
+                }
+                else 
+                {
+                    dict1[word1[i]] = 1;
+                }
+
+                if (dict2.ContainsKey(word2[i]))
+                {
+                    dict2[word2[i]]++;
+                }
+                else 
+                {
+                    dict2[word2[i]] = 1;
+                }
+            }
+            
+            // foreach(Char c in word2)
+            // {
+            //     dict1[c]++;
+            // }
+            var count = 0;
+            foreach(KeyValuePair<Char, int> k in dict1)
+            {
+                Debug.WriteLine(k.Key + " " + k.Value);
+                if(dict1.ContainsKey(k.Key) && dict2.ContainsKey(k.Key) && k.Value==dict2[k.Key])
+                {
+                    count++;
+                }
+            }
+            
+            if(count == dict1.Count && count == dict2.Count)
+            {
+                return true;
+            }
+        }
         return false;
-    }
+   }
 
     /// <summary>
     /// This function will read JSON (Javascript Object Notation) data from the 
