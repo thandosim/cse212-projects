@@ -1,4 +1,7 @@
+using System.Diagnostics;
 using System.Text.Json;
+// using System; 
+// using System.Linq;
 
 public static class SetsAndMaps
 {
@@ -22,7 +25,20 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        HashSet<string> wordsSet = [.. words];
+        List<string> pairsList = new List<string>();
+        foreach(string word in wordsSet)
+        {
+            string reverse = new string(word.Reverse().ToArray());
+            if(wordsSet.Contains(reverse))
+            {
+                wordsSet.Remove(reverse);
+                var pair = word + " & " + reverse; 
+                pairsList.Add(pair);
+            }
+        }
+        string[] pairs = pairsList.ToArray();
+        return pairs;
     }
 
     /// <summary>
@@ -43,6 +59,7 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            Debug.WriteLine(fields);
         }
 
         return degrees;
