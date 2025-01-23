@@ -30,10 +30,10 @@ public static class SetsAndMaps
         foreach(string word in wordsSet)
         {
             string reverse = new string(word.Reverse().ToArray());
-            if(wordsSet.Contains(reverse))
+            if(wordsSet.Contains(reverse) && (word!=reverse))
             {
                 wordsSet.Remove(reverse);
-                var pair = word + " & " + reverse; 
+                var pair = word + " & " + reverse;
                 pairsList.Add(pair);
             }
         }
