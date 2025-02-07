@@ -12,10 +12,16 @@ public static class Recursion
     /// to identify a base case (terminating case).  If the value of
     /// n <= 0, just return 0.   A loop should not be used.
     /// </summary>
+    /// smaller problem: (n-1)^2
+    /// base case: n = 1
     public static int SumSquaresRecursive(int n)
     {
         // TODO Start Problem 1
-        return 0;
+        if (n==1)
+        {
+            return 1;
+        }
+        return n * n + SumSquaresRecursive(n-1);
     }
 
     /// <summary>
