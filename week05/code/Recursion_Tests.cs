@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // DO NOT MODIFY THIS FILE
@@ -30,6 +31,13 @@ public class PermutationsChooseTests
         Recursion.PermutationsChoose(results, "ABCD", 3);
 
         results.Sort();
+        
+        for(var i =0;i<results.Count;i++)
+        {
+            Debug.WriteLine(results[i]);
+        }
+        
+
         var expected = new List<string> {
             "ABC",
             "ABD",
