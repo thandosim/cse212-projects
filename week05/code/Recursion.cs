@@ -141,7 +141,9 @@ public static class Recursion
     /// </summary>
     public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null)
     {
-        // Base Cases
+        
+        if (remember == null)
+            remember = new Dictionary<int, decimal>();
         if (s == 0)
             return 0;
         if (s == 1)
@@ -152,9 +154,12 @@ public static class Recursion
             return 4;
 
         // TODO Start Problem 3
+        if (remember.ContainsKey(s))
+            return remember[s];
 
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        decimal ways = CountWaysToClimb(s - 1,remember) + CountWaysToClimb(s - 2,remember) + CountWaysToClimb(s - 3,remember);
+        remember[s] = ways;
         return ways;
     }
 
@@ -171,9 +176,45 @@ public static class Recursion
     /// Using recursion, insert all possible binary strings for a given pattern into the results list.  You might find 
     /// some of the string functions like IndexOf and [..X] / [X..] to be useful in solving this problem.
     /// </summary>
+    /// base case: 
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+        
+        var tempResults = new List<string>
+        {
+            pattern
+        };
+
+        BinaryString(tempResults);
+        void BinaryString(List<string>tempResults)
+        {
+            if(tempResults.Count==0)
+            {
+                return;
+            }
+            for(int i=0;i<=tempResults.Count-1;i++)
+            {
+                string item = tempResults[i];
+                int index = item.IndexOf('*');
+                if(index!=-1)
+                {
+                    char[] characters = item.ToCharArray();
+                    characters[index]='0';
+                    tempResults.Add(new string(characters));
+                    characters[index]='1';
+                    tempResults.Add(new string(characters));
+                }
+                else
+                {
+                    results.Add(item);
+                }
+                tempResults.Remove(item);
+            }
+            BinaryString(tempResults);
+        }        
+        return;
+        // return index;
     }
 
     /// <summary>

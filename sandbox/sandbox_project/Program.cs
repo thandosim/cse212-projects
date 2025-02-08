@@ -1,5 +1,5 @@
 using System;
-
+using System.Collections.Generic;
 
 
 
@@ -12,67 +12,54 @@ public class Program
         // one of your projects.
 
         Console.WriteLine("Hello Sandbox World!");
-        
         var results = new List<string>();
-        PermutationsChoose(results, "ABCD",1);
+        WildcardBinary("110*0*", results);
+        // Console.WriteLine(WildcardBinary("110100",results));
         results.Sort();
-        for(var i =0;i<results.Count;i++)
+        foreach(string item in results)
         {
-            Console.WriteLine(results[i]);
+            Console.WriteLine(item);
         }
+        
     }
 
-    public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
+    public static void WildcardBinary(string pattern, List<string> results)
     {
-        // TODO Start Problem 2
-        var resultsList = new List<string>();
-        HashSet<string> resultsSet = new HashSet<string>();
-        RemoveLettersFairly(letters, letters.Length-size, resultsList);
-        foreach(string item in resultsList)
+        // TODO Start Problem 4
+        
+        var tempResults = new List<string>
         {
-            if(!resultsSet.Contains(item))
-            {
-                resultsSet.Add(item);
-                Permute(item);
-            }
-        }
+            pattern
+        };
 
-        void Permute(string letters, string word = "")
+        BinaryString(tempResults);
+        void BinaryString(List<string>tempResults)
         {
-            if (letters.Length == 0)
+            if(tempResults.Count==0)
             {
-                results.Add(word);
-                // Console.WriteLine(word);
-            }
-            else
-            {
-                for (var i =0;i<letters.Length;i++)
-                {
-                    var lettersLeft = letters.Remove(i,1);
-                    Permute( lettersLeft, word+letters[i]);
-                }
-            }
-        }
-
-        static void RemoveLettersFairly(string word, int n, List<string> results)
-        {
-            if (n == 0)
-            {
-                results.Add(word);
                 return;
             }
-
-            HashSet<string> seen = new HashSet<string>();
-            for (int i = 0; i <= word.Length - n; i++)
+            for(int i=0;i<=tempResults.Count-1;i++)
             {
-                string newWord = word.Remove(i, 1);
-                if (!seen.Contains(newWord))
+                string item = tempResults[i];
+                int index = item.IndexOf('*');
+                if(index!=-1)
                 {
-                    seen.Add(newWord);
-                    RemoveLettersFairly(newWord, n - 1, results);
+                    char[] characters = item.ToCharArray();
+                    characters[index]='0';
+                    tempResults.Add(new string(characters));
+                    characters[index]='1';
+                    tempResults.Add(new string(characters));
                 }
+                else
+                {
+                    results.Add(item);
+                }
+                tempResults.Remove(item);
             }
-            
-        }  
+            BinaryString(tempResults);
+        }        
+        return;
+        // return index;
     }
 }
